@@ -1,0 +1,24 @@
+#cloud-config
+# the *above* line is special and shall not be changed.
+# see example: https://cloudinit.readthedocs.io/en/latest/topics/examples.html#yaml-examples
+users:
+  - name: ops
+    # see https://wiki.debian.org/SystemGroups
+    # groups: users
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCiDnG0KR3aPIMeTHSARPwwKwmrQZgAI/RQuAUUeCwYvubgpDZllp7TNqm3/tKPPFvDs0nL5MSy/0eh3FGnY3aLzTR1eJ8esuEgrhNoZF0aTNOmOU2g3BX7iaqEEmxIYp0faQxzE9jsuM4hu75Npw9P1ETe4qx5nWFzvzG1QtYB5n4pe1NPFgpGiU1JaIhngPh61EWihFaYoSuhy02q2bonWtv9ecBSoX/806oD5XmRDXIWKlrJlYWaWhQkDWFwkcHYlevD31vS1KzxHfaEzC+LFnFwwUpZ8auYMmAzVM4v/KOep8nAZ+ha2k9SRYOtp6w6wOCbY+VbgOyd0TOE9fZgeisr2wtuKeOVB6MHDfJG+3iadRjORQSQbNS6c5dBslF84PyL0aUeRcc2UlPjWRyhYBa883Y6N9q7EfqiFoau9iCCMKgwSNp+uZjhB+msp4313E2T5SGV0druy6umh9EiPiMiEZhG406wM+mOqDx/AHuZ/KwPCA/XcndYH1vjCEHnIcnFkiZXBxtLPpLorgOK4uXDsU/955/pUVNjD27+lriPDCd1XYujyL6qV2BMVl7ZqWWXrnObWLVeeX6BxGd6oCYsZDIf/+eda+cfvT7QhFBrEuXMXBZpPXCFgyXXOfHsE7/MIhj7DB2eNnZEUdp3wPWrISeZeBZGF3RcnFJlBQ== matthew@watermelon
+package_update: true
+package_upgrade: true
+packages:
+  - fail2ban
+  - ufw
+runcmd:
+  # ssh
+  - sed -ie '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  - sed -ie '/^PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
+  - systemctl restart ssh
+  # ufw
+  # we setup ufw with bb tasks.
+      

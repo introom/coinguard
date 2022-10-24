@@ -1,0 +1,8 @@
+;; see https://github.com/xtdb/xtdb/blob/master/build/docker/xtdb-standalone-rocksdb.edn
+{:xtdb/tx-log {:kv-store {:xtdb/module xtdb.rocksdb/->kv-store
+                          :db-dir "data/tx-log"}}
+ :xtdb/document-store {:kv-store {:xtdb/module xtdb.rocksdb/->kv-store
+                                  :db-dir "data/document-store"}}
+ :xtdb/index-store {:kv-store {:xtdb/module xtdb.rocksdb/->kv-store
+                               :db-dir "data/index-store"}}
+ :xtdb.http-server/server {:port 3000}}

@@ -1,0 +1,19 @@
+;; the shadow-cljs command will use deps to launch the JVM, ignoring any :source-paths
+;; and :dependencies in shadow-cljs.edn.  see
+;; https://shadow-cljs.github.io/docs/UsersGuide.html#deps-edn
+{:deps true
+
+ ;; do not install the deps defined from deps.cljs
+ ;; see https://shadow-cljs.github.io/docs/UsersGuide.html#publish-deps-cljs
+ ;; in `shadow-cljs clj-repl` run `(shadow.cljs.devtools.server.npm-deps/get-deps-from-classpath)` to
+ ;; get the list.
+ :npm-deps {:install false}
+
+ ;; for optimization, :none is fixed for development mode.
+ :builds
+ {:app
+  {:target :browser
+   :output-dir "target/app"
+   :asset-path "js",
+   :modules {:app {:init-fn app.main/-main}}
+   :devtools {}}}}

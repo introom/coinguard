@@ -1,0 +1,18 @@
+{:linters
+ {;; exclude unresolved reference errors from the io.aviso.ansi namespace
+  ;; see https://github.com/clj-kondo/clj-kondo/blob/master/doc/linters.md#unresolved-var
+  :unresolved-var
+  {:exclude [io.aviso.ansi]}
+
+  :unresolved-namespace
+  {:exclude [user]}
+
+  :unused-namespace
+  {:exclude #{app.logging
+              app.exceptions}}
+
+  :unused-binding
+  {:level :off}}
+
+ :lint-as
+ {app.db/with-transaction next.jdbc/with-transaction}}

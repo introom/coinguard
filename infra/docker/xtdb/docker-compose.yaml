@@ -1,0 +1,17 @@
+version: "3.7"
+
+x-base: &base
+  volumes:
+    - rocksdb_data:/opt/xtdb/data
+  ports:
+    - "127.0.0.1:3000:3000"
+
+services:
+  app:
+    <<: *base
+    image: firepandalabs.azurecr.io/coinguard/xtdb:dev
+    build:
+      context: .
+
+volumes:
+  rocksdb_data:

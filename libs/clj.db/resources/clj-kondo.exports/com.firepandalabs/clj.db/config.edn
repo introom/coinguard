@@ -1,0 +1,2 @@
+;; see https://cljdoc.org/d/clj-kondo/clj-kondo/2022.08.03/doc/configuration#sample-exports
+{:lint-as {fpl.clj.db/with-transaction next.jdbc/with-transaction}}

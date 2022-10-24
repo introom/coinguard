@@ -1,0 +1,42 @@
+version: "3"
+
+# see https://docs.docker.com/compose/networking/
+# by default, all services are reachable with their service name.
+
+services:
+  app:
+    # depends_on:
+    #   - xtdb
+    #   - ethereum
+    image: firepandalabs.azurecr.io/coinguard/backend:latest
+    # NB the cluster is on amd64!
+    platform: linux/x86_64
+    command: tail -f /dev/null
+    build:
+      context: ../..
+      dockerfile: docker/backend/Dockerfile
+    # with extra priviledge.  actually not needed.
+    # https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities
+    privileged: true
+    volumes:
+      - "${PWD}/../../:/opt/mounted"
+    ports:
+      - 5324:5324
+
+  redis:
+    image: redis:6.2.6
+    hostname: "coinguard-redis"
+    container_name: "coinguard-redis"
+    ports:
+      - 6379:6379
+    restart: always
+
+  ethereum:
+    image: firepandalabs.azurecr.io/coinguard/ethereum:latest
+    command: geth --goerli --http --http.addr 0.0.0.0 --http.vhosts "*"
+    restart: always
+    volumes:
+      - ethereum_data:/root/.ethereum
+
+volumes:
+  ethereum_data:

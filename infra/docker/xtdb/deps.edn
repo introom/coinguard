@@ -1,0 +1,13 @@
+{:paths ["resources"]
+ :deps {org.clojure/clojure {:mvn/version "1.10.3"}
+
+        com.xtdb/xtdb-core {:mvn/version "1.19.0-beta1"}
+        com.xtdb/xtdb-rocksdb {:mvn/version "1.19.0-beta1"}
+        com.xtdb/xtdb-http-server {:mvn/version "1.19.0-beta1"}
+
+        org.clojure/tools.logging {:mvn/version "1.1.0"}
+        ch.qos.logback/logback-classic {:mvn/version "1.2.3"}
+        ch.qos.logback/logback-core {:mvn/version "1.2.3"}
+        org.slf4j/slf4j-api {:mvn/version "1.7.30"}}
+
+ :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]}

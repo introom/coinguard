@@ -1,0 +1,45 @@
+name: CoinGuard
+on:
+  push:
+    # branches:
+    #   - main
+    paths:
+      - '.github/workflows/coinguard.yml'
+      - '**'
+  pull_request:
+    paths:
+      - '.github/workflows/coinguard.yml'
+      - '**'
+
+jobs:
+  build:
+    runs-on: self-hosted
+    # see https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idcontainer
+    # run inside the container
+    container:
+      image: firepandalabs.azurecr.io/coinguard/dev:latest
+    # defaults:
+    #   run:
+    #     working-directory: ./
+    steps:
+      - uses: actions/checkout@v2
+      # see https://docs.github.com/en/actions/advanced-guides/caching-dependencies-to-speed-up-workflows
+      - uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-${{ hashFiles('**/deps.edn') }}
+      # mobile
+      - name: mobile lint
+        working-directory: mobile
+        run: bb lint
+      - name: mobile test
+        working-directory: mobile
+        run: bb test
+          
+      #  backend
+      - name: backend lint
+        working-directory: backend
+        run: bb lint
+      - name: backend test
+        working-directory: backend
+        run: bb test

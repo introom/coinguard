@@ -1,0 +1,18 @@
+;; see https://cljdoc.org/d/clj-kondo/clj-kondo/2022.04.08/doc/readme
+{:lint-as
+ {reagent.core/with-let clojure.core/let
+
+  ;; see https://github.com/redplanetlabs/specter#clj-kondo
+  com.rpl.specter/defcollector clojure.core/defn
+  com.rpl.specter/defdynamicnav clojure.core/defn
+  com.rpl.specter/defmacroalias clojure.core/def
+  com.rpl.specter/defnav clojure.core/defn
+  com.rpl.specter/defrichnav clojure.core/defn}
+
+ ;; see https://clojure-lsp.github.io/clojure-lsp/settings/#custom-clj-kondo-hooks
+ :linters
+ {:clojure-lsp/unused-public-var {:level :warning
+                                  :exclude #{app.main/-main}
+                                  :exclude-when-defined-by #{cljs.test/deftest}}
+  :unused-namespace
+  {:exclude #{app.logging}}}}

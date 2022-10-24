@@ -1,0 +1,6 @@
+;; see https://github.com/weavejester/cljfmt/blob/master/cljfmt/resources/cljfmt/indents/clojure.clj
+
+;; this file is actually read by calva. 
+;; see https://calva.io/formatting/#configuration
+{:indents
+ {as-> [[:inner 0]]}}

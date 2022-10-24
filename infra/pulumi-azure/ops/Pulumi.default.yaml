@@ -1,0 +1,5 @@
+encryptionsalt: v1:3/OsteP5M9A=:v1:PrgyuhWM4cEuSgrU:GxaQcN3EuLaD7TfkAYxIsUi/XIyIhQ==
+config:
+  azure-native:location: westus2
+  ops:runnerPassword:
+    secure: v1:ILRWzmmqPxu99XDn:/L8eT/xQxCjoJF0oeKoJTUHUMd5+fa6ERz8h7SisLPUvOJvNMXkRTBGm

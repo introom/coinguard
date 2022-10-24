@@ -1,0 +1,23 @@
+;; see https://book.babashka.org/#project-setup
+{:paths ["./"]
+
+ ;; see https://book.babashka.org/#_paths_and_deps
+ ;; use deps from deps.edn
+ :deps {local/deps {:local/root "."}}
+
+ ;; see https://book.babashka.org/#_run_2
+ :tasks
+ {:requires ([fpl.ops.config :refer [make-context]]
+             [task.provider :as provider]
+             [task.gateway :as gateway]
+             [task.hello :as hello])
+  :init (def ctx (make-context))
+
+  ssh (provider/ssh-cmd ctx)
+  script (provider/script-cmd ctx)
+  k3s-controller (provider/k3s-controller-cmd ctx)
+  k3s-worker (provider/k3s-worker-cmd ctx)
+  helm-install-nginx (gateway/helm-install-nginx-cmd ctx)
+  helm-install-cert-manager (gateway/helm-install-cert-manager-cmd ctx)
+  kube-install-cert-manager (gateway/kube-install-cert-manager-cmd ctx)
+  kube-install-hello (hello/kube-install-hello-cmd ctx)}}

@@ -1,0 +1,4 @@
+{:paths ["./src"]
+ ;; see https://book.babashka.org/#_paths_and_deps
+ ;; reuse deps from deps.edn
+ :deps {local/deps {:local/root "."}}}

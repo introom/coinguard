@@ -1,0 +1,1 @@
+alter table session alter updated_at set default clock_timestamp();

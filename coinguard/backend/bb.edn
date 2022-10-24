@@ -1,0 +1,23 @@
+;; see https://book.babashka.org/#project-setup
+{:paths ["bin/" "dev/"]
+
+ ;;  https://book.babashka.org/#_paths_and_deps
+ :deps {io.aviso/pretty {:mvn/version "1.1.1"}
+        org.clojure/data.json {:mvn/version "2.4.0"}}
+
+ ;; see https://github.dev/djblue/portal/tree/master
+ ;; see https://book.babashka.org/#_run_2
+ :tasks
+ {:requires ([task.util :refer [clj]])
+  
+  dummy (shell "echo 'I am in a shell.'")
+  test task.test/test
+  clean task.clean/clean
+  check-fmt task.format/check-fmt
+  fmt task.format/fix-fmt
+  lint task.lint/lint
+  deps task.deps/fix-deps
+  build task.image/build
+  push task.image/push
+  deploy task.deploy/deploy
+  migrate (clj "-X:dev tool.flyway/migrate")}}

@@ -1,0 +1,33 @@
+;; the shadow-cljs command will use deps to launch the JVM, ignoring any :source-paths
+;; and :dependencies in shadow-cljs.edn.  see
+;; https://shadow-cljs.github.io/docs/UsersGuide.html#deps-edn
+{:deps true
+
+ ;; for optimization, :none is fixed for development mode.
+ :builds
+ {:app
+  {:target :react-native
+   ;; the output file is ./target/app/index.js
+   :output-dir "target/app"
+   :init-fn app.main/-main
+   :js-options {:js-package-dirs ["node_modules"]}
+   :dev {:devtools {:preloads []}}
+   :release {}}
+
+  ;; see https://shadow-cljs.github.io/docs/UsersGuide.html#target-node-test for more
+  :test
+  {:output-to     "target/test/test.js"
+   :output-dir    "target/test"
+   :optimizations :simple
+   :target        :node-test
+   :compiler-options {:source-map false
+                      ;; needed because we use deref in tests
+                      :static-fns false
+                      :optimizations :simple}}
+
+  :mocks {:target :node-library
+          :exports {:mock mocks/mock}
+          :output-to "target/mocks.js"
+          :output-dir "target/"
+          :compiler-options {:optimizations :simple
+                             :source-map false}}}}

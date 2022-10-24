@@ -1,0 +1,14 @@
+{:paths ["src" "resources"]
+
+ :deps
+ {org.clojure/clojure {:mvn/version "1.11.1"}
+  reagent/reagent {:mvn/version "1.1.1"}
+  metosin/reitit {:mvn/version "0.5.18"}
+  camel-snake-kebab/camel-snake-kebab {:mvn/version "0.4.2"}
+  cljs-bean/cljs-bean {:mvn/version "1.8.0"}}
+
+ :aliases
+ {:shadow-watch
+  {:extra-deps {thheller/shadow-cljs$aot {:mvn/version "2.19.5"}} ;; aot is the package classifier 
+   :main-opts ["-m" "shadow.cljs.devtools.cli" "watch" "app"]}}}
+

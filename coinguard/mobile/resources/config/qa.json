@@ -1,0 +1,4 @@
+{
+  "env": "qa",
+  "api-base-url": "https://api.coinguard.qa.firepandalabs.com"
+}

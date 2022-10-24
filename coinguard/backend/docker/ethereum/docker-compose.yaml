@@ -1,0 +1,23 @@
+version: "3"
+
+x-base: &base
+  image: firepandalabs.azurecr.io/coinguard/ethereum:latest
+  volumes:
+    - ethereum-data:/root/.ethereum
+  ports:
+    - 127.0.0.1:18545:18545
+
+services:
+  bash:
+    <<: *base
+    entrypoint: bash
+
+  app:
+    <<: *base
+    build:
+      context: .
+    restart: always
+    command: /opt/fpl/geth --goerli --http --http.addr 0.0.0.0 --http.port 18545 --http.api eth,clique --http.vhosts "*"
+
+volumes:
+  ethereum-data:

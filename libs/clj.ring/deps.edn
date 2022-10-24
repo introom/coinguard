@@ -1,0 +1,28 @@
+{:paths ["src" "resources"]
+
+ :deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        ;; https://github.com/ring-clojure/ring/wiki
+        ring/ring {:mvn/version "1.9.5"}
+        ;; websocket support
+        info.sunng/ring-jetty9-adapter {:mvn/version "0.17.7"}
+        metosin/reitit {:mvn/version "0.5.18"}
+        ;; the package's namespace is `ring.util.http-status`
+        metosin/malli {:mvn/version "0.8.9"}
+        metosin/jsonista {:mvn/version "0.3.5"}
+        metosin/ring-http-response {:mvn/version "0.9.3"}
+        buddy/buddy-core {:mvn/version "1.10.413"}
+        buddy/buddy-auth {:mvn/version "3.0.323"}
+        buddy/buddy-sign {:mvn/version "3.4.333"}
+        buddy/buddy-hashers {:mvn/version "1.8.158"}
+        com.firepandalabs/clj {:local/root "../../firepandalabs/clj"}
+        com.firepandalabs/clj.db {:local/root "../../firepandalabs/clj.db"}}
+
+ :aliases
+ {:dev
+  {:extra-paths ["example"]}
+
+  :test
+  {:extra-paths ["test"]
+   :extra-deps {org.clojure/test.check {:mvn/version "1.1.1"}
+                io.github.cognitect-labs/test-runner
+                {:git/tag "v0.5.0" :git/sha "48c3c67"}}}}}

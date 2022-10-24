@@ -1,0 +1,13 @@
+;; see libraries supported by babashka
+;; https://github.com/babashka/babashka/blob/master/doc/projects.md
+{:paths ["src" "resources"]
+ :deps
+ {environ/environ {:mvn/version "1.2.0"}
+  firepandalabs/clj {:local/root "../clj"}}
+
+ :aliases
+ {:dev
+  {:extra-deps
+   {babashka/babashka {:mvn/version "0.8.156"}
+    babashka/fs {:mvn/version "0.1.6"}
+    babashka/process {:mvn/version "0.1.2"}}}}}

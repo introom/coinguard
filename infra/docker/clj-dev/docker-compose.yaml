@@ -1,0 +1,19 @@
+version: "3.7"
+
+x-base: &base
+  volumes:
+    - ".:/opt/app"
+  image: firepandalabs.azurecr.io/factory/clj-dev:latest
+  working_dir: /opt/app
+  ports:
+    - "127.0.0.1:8080:8080"
+
+services:
+  bash:
+    <<: *base
+    entrypoint: bash
+
+  app:
+    <<: *base
+    build:
+      context: .

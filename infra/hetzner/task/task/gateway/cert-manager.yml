@@ -1,0 +1,63 @@
+# troubleshooting cert manager: https://stackoverflow.com/a/65809340/855160
+#
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fpl-cloudflare-api-token-secret-{{app-env}}
+  namespace: gateway
+type: Opaque
+stringData:
+  api-token: {{fpl-cloudflare-api-token}}
+
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: fpl-cluster-issuer-{{app-env}}
+  namespace: gateway
+spec:
+  acme:
+    # see https://cert-manager.io/docs/tutorials/acme/dns-validation/#issuing-an-acme-certificate-using-dns-validation
+    server: "https://acme-v02.api.letsencrypt.org/directory"
+    email: firepanda@firepandalabs.com
+
+    # place to store the secret received from letsencrypt (for the ca).
+    # see https://cert-manager.io/docs/reference/api-docs/#:~:text=registered%20ACME%20account.-,privateKeySecretRef,-SecretKeySelector
+    privateKeySecretRef:
+      # name of a secret used to store the acme account private key
+      name: fpl-letsencrypt-private-key-{{app-env}}
+
+    # https://cert-manager.io/docs/configuration/acme/dns01/cloudflare/#api-tokens
+    solvers:
+    - dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            name: fpl-cloudflare-api-token-secret-{{app-env}}
+            key: api-token
+
+---
+# see https://cert-manager.io/docs/usage/certificate/
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: fpl-{{app-env}}
+  namespace: gateway
+spec:
+  # the place to store the certificate and its secrets. 
+  # XXX nginx also looks at it (default-ssl setting)!
+  # note that we didn't add the env suffix here.
+  secretName: default-ssl-certificate
+  # get certificate from this issuer
+  issuerRef:
+    name: fpl-cluster-issuer-{{app-env}}
+    kind: ClusterIssuer 
+  privateKey:
+    rotationPolicy: Always
+  dnsNames: 
+  {% if app-env = "qa" %}
+    - "firecatlabs.com"
+    - "*.firecatlabs.com"
+  {% elif app-env = "prod" %}
+    - "firepandalabs.com"
+    - "*.firepandalabs.com"
+  {% endif %}

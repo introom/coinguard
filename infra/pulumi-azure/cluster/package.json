@@ -1,0 +1,13 @@
+{
+    "name": "cluster",
+    "main": "index.js",
+    "dependencies": {
+        "@pulumi/azure": "^5.5.0",
+        "@pulumi/azure-native": "^1.64.0",
+        "@pulumi/azuread": "^5.22.0",
+        "@pulumi/kubernetes-ingress-nginx": "^0.0.1",
+        "@pulumi/pulumi": "^3.32.1",
+        "@pulumi/random": "^4.6.0",
+        "@pulumi/tls": "^4.4.0"
+    }
+}

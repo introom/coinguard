@@ -1,0 +1,20 @@
+version: "3.7"
+
+x-base: &base
+  image: firepandalabs.azurecr.io/factory/datomic-dev:latest
+  volumes:
+    - ".:/opt/app"
+  ports:
+    - "127.0.0.1:8998:8998"
+    - "127.0.0.1:4334:4334"
+    - "127.0.0.1:4335:4335"
+
+services:
+  bash:
+    <<: *base
+    entrypoint: bash
+
+  app:
+    <<: *base
+    build:
+      context: .

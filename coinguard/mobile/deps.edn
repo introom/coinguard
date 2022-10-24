@@ -1,0 +1,26 @@
+{:paths ["src/"]
+
+ :deps
+ {;; no need to specify clojure, clojurescript and async.
+  ;; shadow already depends on them.
+  thheller/shadow-cljs$aot {:mvn/version "2.19.0"} ;; aot is the package classifier 
+  camel-snake-kebab/camel-snake-kebab {:mvn/version "0.4.2"}
+  reagent/reagent {:mvn/version "1.1.1"}
+  cljs-bean/cljs-bean {:mvn/version "1.8.0"}
+  potemkin/potemkin {:mvn/version "0.4.5"}
+  com.rpl/specter {:mvn/version "1.1.4"}}
+
+ :aliases
+ {:shadow {:main-opts ["-m" "shadow.cljs.devtools.cli"]}
+
+  ;; mainly for calva
+  :shadow-watch {:main-opts ["-m" "shadow.cljs.devtools.cli" "watch" "app"]}
+
+  :dev
+  {:extra-paths ["dev-local/"]
+   :extra-deps
+   {clj-kondo/clj-kondo {:mvn/version "2022.04.25"}
+    cljfmt/cljfmt {:mvn/version "0.8.0"}}}
+
+  :build
+  {:jvm-opts ["-Dapp.configFile=config/prod.json"]}}}

@@ -1,0 +1,31 @@
+version: "3"
+
+x-base: &base
+  image: firepandalabs.azurecr.io/coinguard/bitcoin:latest
+  volumes:
+    - bitcoin_data:/opt/bitcoin-data
+  ports:
+    - 127.0.0.1:18332:18332
+
+services:
+  bash:
+    <<: *base
+    entrypoint: bash
+
+  app:
+    <<: *base
+    build:
+      context: .
+    entrypoint: bitcoind
+    # example: curl --data-binary '{"jsonrpc":"1.0","id":"curltext","method":"getblockchaininfo","params":[]}' http://firepanda:firepanda@127.0.0.1:18332
+    command:
+      - -testnet
+      - -printtoconsole
+      - -datadir=/opt/bitcoin-data
+      - -rpcallowip=0.0.0.0/0
+      - -rpcbind=0.0.0.0
+      - -rpcuser=firepanda
+      - -rpcpassword=firepanda
+
+volumes:
+  bitcoin_data:

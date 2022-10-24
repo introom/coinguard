@@ -1,0 +1,4 @@
+encryptionsalt: v1:rppSpNmavmk=:v1:LunyNjDFtYS87BLP:jB3Kuo4UxIBhpeNz9leo0gcEAWcetg==
+config:
+  azure-native:location: westus2
+  cluster:envName: qa

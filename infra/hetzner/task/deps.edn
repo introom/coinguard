@@ -1,0 +1,9 @@
+{:deps
+ {com.rpl/specter {:mvn/version "1.1.4"}
+  io.github.firepandalabs/bb {:local/root "../../bb"}
+  #_{:git/url "git@github.com:firepandalabs/bb.git"
+     :git/sha "1eda472d1c3e68903965ec388cb432f5eda68981"}
+  io.github.firepandalabs/clj {:local/root "../../clj"}
+  #_{:git/url "git@github.com:firepandalabs/clj.git"
+     :git/sha "ddce26764725f3700e9c5f533b2fddbad21266dd"}
+  io.github.firepandalabs/ops {:local/root "../../ops"}}}

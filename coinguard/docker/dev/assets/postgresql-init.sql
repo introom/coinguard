@@ -1,0 +1,1 @@
+CREATE DATABASE coinguard_test;
